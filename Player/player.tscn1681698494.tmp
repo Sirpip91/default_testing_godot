@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcfd2rsqnbiyu"]
+[gd_scene load_steps=6 format=3 uid="uid://bcfd2rsqnbiyu"]
 
 [ext_resource type="Script" uid="uid://c1fihrgmtwikr" path="res://Scripts/player.gd" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://ee1a8mhck3px" path="res://UI/pause_menu.tscn" id="2_4ntmi"]
+[ext_resource type="PackedScene" uid="uid://k83oyxyog255" path="res://Scenes/fps_counter.tscn" id="2_btcbx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xc2g5"]
 
@@ -24,3 +25,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67939, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_4ntmi")]
+
+[node name="FpsCounter" parent="PauseMenu" instance=ExtResource("2_btcbx")]
