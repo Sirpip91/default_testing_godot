@@ -1,0 +1,12 @@
+TextureRect
+Panel
+Control
+Marker3D
+Label
+CanvasLayer
+StaticBody3D
+CollisionShape3D
+Camera3D
+Node3D
+MeshInstance3D
+CharacterBody3D

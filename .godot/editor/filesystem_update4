@@ -1,0 +1,10 @@
+res://Scenes/world.tscn
+res://Scenes/Player.tscn
+res://Player/player.tscn
+res://Player/player.gd
+res://Scenes/fps_counter.tscn
+res://Scenes/fps_counter.gd
+res://Player/World.tscn
+res://Scripts/player.gd
+res://UI/pause_menu.tscn
+res://UI/GUI_TEST.tscn

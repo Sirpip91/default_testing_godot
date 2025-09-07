@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b76iwla8w4bqh"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 119.0
+offset_bottom = 38.0
+
+[node name="PauseMenu" type="Panel" parent="."]
