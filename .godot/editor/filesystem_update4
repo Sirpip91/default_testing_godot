@@ -22,3 +22,4 @@ res://Interact/interact_ray.gd
 res://Button.tscn
 res://Settings/Alignment.gd
 res://world.tscn
+res://UI/GUI_TEST.tscn
