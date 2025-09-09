@@ -20,8 +20,12 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-@onready var InteractRay = $Head/Camera3D/InteractRay
-@onready var InteractText = $Head/Camera3D/InteractRay/Label
+
+var preview_choice: String = ""   # "Light", "Dark", or ""
+var committed_choice: String = "" # what was last committed
+
+# you can later use committed_choice for alignment tracking
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -41,12 +45,11 @@ func _unhandled_input(event):
 	
 
 func _physics_process(delta):
-	InteractText.text = ""
 	
-	if InteractRay.is_colliding():
-		var target = InteractRay.get_collider()
-		InteractText.text = "Touching " + target.name
-	
+	if Input.is_action_just_pressed("preview_dark"):
+		Alignment.set_dark()
+	elif Input.is_action_just_pressed("preview_light"):
+		Alignment.set_light()
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

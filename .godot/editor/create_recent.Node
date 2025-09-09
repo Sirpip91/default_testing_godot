@@ -1,7 +1,8 @@
-Label
 CollisionShape3D
-CSGMesh3D
+MeshInstance3D
 StaticBody3D
+Label
+CSGMesh3D
 CSGCombiner3D
 BoxContainer
 CanvasLayer
@@ -11,4 +12,3 @@ RayCast3D
 CSGBox3D
 CSGCylinder3D
 CheckBox
-AnimationPlayer

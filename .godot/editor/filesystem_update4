@@ -16,3 +16,9 @@ res://Scripts/player.gd
 res://Scenes/triangle.gd
 res://Scenes/collision_shape_3d.gd
 res://Scenes/static_body_3d.gd
+res://Interact/interactable.gd
+res://Interact/InteractRay.tscn
+res://Interact/interact_ray.gd
+res://Button.tscn
+res://Settings/Alignment.gd
+res://world.tscn
