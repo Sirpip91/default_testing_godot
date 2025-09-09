@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://uycil1rmsca4"]
+
+[node name="InteractRay" type="RayCast3D"]
+target_position = Vector3(0, 0, -4)
+collision_mask = 0

@@ -1,0 +1,130 @@
+[gd_scene load_steps=21 format=3 uid="uid://cnk7b4wef5sdp"]
+
+[ext_resource type="Shader" uid="uid://dvy06hokkmj67" path="res://sky_stars.gdshader" id="1_yg6rb"]
+[ext_resource type="Texture2D" uid="uid://byprhgfirsoyj" path="res://girl/Effect_StarBg_00.png" id="2_6qj3o"]
+[ext_resource type="Shader" uid="uid://g52xrbdeywm" path="res://outline.gdshader" id="3_ayuu8"]
+[ext_resource type="Script" uid="uid://tx25i0cyjxb" path="res://post_process_shader.gd" id="3_om45m"]
+[ext_resource type="Script" uid="uid://5qc2p2v7ykav" path="res://directional_light_3d.gd" id="4_4qc3i"]
+[ext_resource type="Script" uid="uid://5s4xy2swm50c" path="res://camera_3d.gd" id="5_mssda"]
+[ext_resource type="Shader" uid="uid://dia7hixas6bo1" path="res://sobelHighlight.gdshader" id="7_mssda"]
+[ext_resource type="PackedScene" uid="uid://cfy1cwvd8u1y" path="res://stelleModel.tscn" id="8_mssda"]
+[ext_resource type="PackedScene" uid="uid://blkttfvhjasm8" path="res://DIY.tscn" id="9_sxiuf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1hljp"]
+shader = ExtResource("1_yg6rb")
+shader_parameter/sky_tex = ExtResource("2_6qj3o")
+shader_parameter/energy = 2.3
+shader_parameter/gamma = 1.746
+shader_parameter/scale = Vector3(1, 1, 1)
+shader_parameter/triplanar_blend_power = 4.0
+shader_parameter/seamless_blend = 0.1
+
+[sub_resource type="Sky" id="Sky_h7mfa"]
+sky_material = SubResource("ShaderMaterial_1hljp")
+
+[sub_resource type="Environment" id="Environment_8n7uv"]
+background_mode = 2
+background_color = Color(0.347656, 0.347656, 0.347656, 1)
+background_energy_multiplier = 4.4
+sky = SubResource("Sky_h7mfa")
+ambient_light_source = 2
+ambient_light_color = Color(0.332031, 0.332031, 0.332031, 1)
+ssao_radius = 2.27
+ssil_radius = 0.1
+ssil_intensity = 0.57
+ssil_sharpness = 1.0
+glow_enabled = true
+glow_strength = 1.15
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ayuu8"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_4qc3i"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("3_om45m")
+shader_code = "
+color.r = rGT;
+color.g = gGT;
+color.b = bGT;
+"
+metadata/_custom_type_script = "uid://tx25i0cyjxb"
+
+[sub_resource type="Compositor" id="Compositor_mssda"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4qc3i")])
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mssda"]
+render_priority = 50
+shader = ExtResource("3_ayuu8")
+shader_parameter/scale = 1.0
+shader_parameter/_Color = Color(0, 0, 0, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 0.33
+shader_parameter/_DepthThreshold = 5.0
+shader_parameter/_NormalThreshold = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_sxiuf"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qc3i"]
+render_priority = 10
+shader = ExtResource("7_mssda")
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/thickness = 0.004
+
+[sub_resource type="QuadMesh" id="QuadMesh_mssda"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_om45m"]
+size = Vector2(5, 5)
+
+[node name="Demo_scene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8n7uv")
+camera_attributes = SubResource("CameraAttributesPractical_ayuu8")
+compositor = SubResource("Compositor_mssda")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.670427, -0.395381, 0.627855, 0, 0.846193, 0.532876, -0.741976, 0.357255, -0.567311, 0.0619051, 0.774005, 1.27677)
+light_color = Color(0.964844, 0.970337, 1, 1)
+directional_shadow_max_distance = 16.0
+script = ExtResource("4_4qc3i")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.20727, 0.698604)
+near = 0.01
+far = 100.0
+script = ExtResource("5_mssda")
+
+[node name="Outline" type="MeshInstance3D" parent="Camera3D"]
+material_override = SubResource("ShaderMaterial_mssda")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_sxiuf")
+
+[node name="HighLight" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000393569, -0.128741, 0.00153422)
+material_override = SubResource("ShaderMaterial_4qc3i")
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_mssda")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62174, 0.187082, 0.267281)
+light_color = Color(0.804688, 1, 0, 1)
+shadow_enabled = true
+
+[node name="STELLE" parent="." instance=ExtResource("8_mssda")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2.81334e-05, -0.00413013, 0.000448227)
+
+[node name="plainMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_om45m")
+
+[node name="STELLE2" parent="." instance=ExtResource("9_sxiuf")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 1.31225, 0, 0.0369434)

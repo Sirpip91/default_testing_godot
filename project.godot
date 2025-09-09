@@ -62,3 +62,14 @@ escape={
 
 common/physics_jitter_fix=0.0
 common/physics_interpolation=true
+
+[shader_globals]
+
+gradientMetallic={
+"type": "sampler2D",
+"value": "res://AnimeShader/gradients/gradientMetallic.tres"
+}
+shadow_color={
+"type": "color",
+"value": Color(0.74902, 0.560784, 0.560784, 1)
+}

@@ -1,14 +1,14 @@
 extends CharacterBody3D
 
 var speed
-const WALK_SPEED = 4.0
+const WALK_SPEED = 2.5
 const SPRINT_SPEED = 6.0
 const JUMP_VELOCITY = 4.8
 const SENSITIVITY = 0.004
 
 #bob variables
 const BOB_FREQ = 2.4
-const BOB_AMP = 0.08
+const BOB_AMP = 0.05
 var t_bob = 0.0
 
 #fov variables
@@ -20,8 +20,8 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-
-
+@onready var InteractRay = $Head/Camera3D/InteractRay
+@onready var InteractText = $Head/Camera3D/InteractRay/Label
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -41,6 +41,12 @@ func _unhandled_input(event):
 	
 
 func _physics_process(delta):
+	InteractText.text = ""
+	
+	if InteractRay.is_colliding():
+		var target = InteractRay.get_collider()
+		InteractText.text = "Touching " + target.name
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
