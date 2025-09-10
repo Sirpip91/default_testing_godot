@@ -1,28 +1,23 @@
 extends Node
 
-# Current player alignment: "Light" or "Dark"
-var current: String = "Light"
+signal alignment_changed(new_alignment)
 
-# Optional: track history or points for endings
+var current: String = "Light"
 var light_points: int = 0
 var dark_points: int = 0
 
-# Switch alignment
 func set_light():
-	current = "Light"
+	if current != "Light":
+		current = "Light"
+		emit_signal("alignment_changed", current)
 
 func set_dark():
-	current = "Dark"
+	if current != "Dark":
+		current = "Dark"
+		emit_signal("alignment_changed", current)
 
 func add_point():
 	if current == "Light":
 		light_points += 1
 	else:
 		dark_points += 1
-	
-"""Now, any script in the project can check the player’s alignment via
-if Alignment.current == "Light":
-	# Do Light behavior
-else:
-	# Do Dark behavior
-"""

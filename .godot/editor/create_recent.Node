@@ -1,3 +1,6 @@
+AudioStreamPlayer3D
+OmniLight3D
+GPUParticles3D
 ColorRect
 CollisionShape3D
 MeshInstance3D
@@ -9,7 +12,3 @@ BoxContainer
 CanvasLayer
 CenterContainer
 TextureRect
-RayCast3D
-CSGBox3D
-CSGCylinder3D
-CheckBox

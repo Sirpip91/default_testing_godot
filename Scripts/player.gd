@@ -20,7 +20,8 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-
+@onready var light_noise = $light_noise
+@onready var dark_noise = $dark_noise
 var preview_choice: String = ""   # "Light", "Dark", or ""
 var committed_choice: String = "" # what was last committed
 
@@ -48,10 +49,13 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("preview_dark"):
 		Alignment.set_dark()
+		dark_noise.play()
 	elif Input.is_action_just_pressed("preview_light"):
 		Alignment.set_light()
+		light_noise.play()
+		
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor(): 	
 		velocity.y -= gravity * delta
 
 	# Handle Jump.

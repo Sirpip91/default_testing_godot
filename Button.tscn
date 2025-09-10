@@ -1,16 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://5vp2nsrdayaf"]
+[gd_scene load_steps=7 format=3 uid="uid://5vp2nsrdayaf"]
 
 [ext_resource type="Script" uid="uid://b0v4fjk5krkyi" path="res://Interact/interactable.gd" id="1_nhor4"]
+[ext_resource type="Script" uid="uid://ocj62xjsswgp" path="res://Alignments/AlignmentMesh.gd" id="2_lc4xp"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_lwy4x"]
+[sub_resource type="SphereMesh" id="SphereMesh_lc4xp"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nhor4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc4xp"]
+albedo_color = Color(1, 0.85098, 0.4, 1)
+emission_enabled = true
+emission = Color(1, 0.85098, 0.4, 1)
+emission_energy_multiplier = 0.43
+grow_amount = 3.91
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kkfq"]
+albedo_color = Color(0.415686, 0.0509804, 0.678431, 1)
+emission_enabled = true
+emission = Color(0.415686, 0.0509804, 0.678431, 1)
+emission_energy_multiplier = 2.0
+grow_amount = 3.91
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lc4xp"]
 
 [node name="Button" type="StaticBody3D"]
 script = ExtResource("1_nhor4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_lwy4x")
+mesh = SubResource("SphereMesh_lc4xp")
+script = ExtResource("2_lc4xp")
+light_material = SubResource("StandardMaterial3D_lc4xp")
+dark_material = SubResource("StandardMaterial3D_0kkfq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_nhor4")
+shape = SubResource("SphereShape3D_lc4xp")
